@@ -1,3 +1,3 @@
-# Four Connect
+# Connect Four
 
-A rushed project that was done for no particular reason overnight.
+A really rushed and scuffed project that was done overnight (real talk...).
