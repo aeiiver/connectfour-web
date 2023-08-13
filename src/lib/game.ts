@@ -1,21 +1,24 @@
-type GameState =
+import { None, Some, type Option } from "./option"
+import { Err, Ok, type Result } from "./result"
+
+export type GameState =
     | { type: 'PlayerTurn', player: Player }
     | { type: 'GameIsOver', outcome: Outcome }
 
-type Player =
+export type Player =
     | 'Player1'
     | 'Player2'
 
-type Outcome =
+export type Outcome =
     | { type: 'PlayerOneWon', cells: Cell[] }
     | { type: 'PlayerTwoWon', cells: Cell[] }
     | { type: 'Tie' }
 
-type Cell =
+export type Cell =
     | { type: 'Filled', player: Player }
     | { type: 'Empty' }
 
-type GameError =
+export type GameError =
     | 'GameIsOver'
     | 'ColumnOutOfBounds'
     | 'ColumnIsFull'
@@ -40,7 +43,7 @@ export class Game {
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
-        ]; // Yes
+        ];
     }
 
     public reset(): void {
@@ -52,7 +55,7 @@ export class Game {
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
-        ]; // Yes
+        ];
     }
 
     public play(colnum: number): Result<void, GameError> {
@@ -92,7 +95,7 @@ export class Game {
     }
 
     private get checkWinner(): Option<Outcome> {
-        // Horizontal lines
+        /* Horizontal lines */
         for (let row = 0; row < this.height; ++row) {
             for (let col = 0; col < this.width - 3; ++col) {
                 const cell1 = this.board_[row][col + 0]
@@ -115,7 +118,7 @@ export class Game {
             }
         }
 
-        // Vertical lines
+        /* Vertical lines */
         for (let row = 0; row < this.height - 3; ++row) {
             for (let col = 0; col < this.width; ++col) {
                 const cell1 = this.board_[row + 0][col]
@@ -138,7 +141,7 @@ export class Game {
             }
         }
 
-        // Diagonals: top-left -> bottom-right
+        /* Diagonals: top-left -> bottom-right */
         for (let row = 0; row < this.height - 3; ++row) {
             for (let col = 0; col < this.width - 3; ++col) {
                 const cell1 = this.board_[row + 0][col + 0]
@@ -161,7 +164,7 @@ export class Game {
             }
         }
 
-        // Diagonals: top-right -> bottom-left
+        /* Diagonals: top-right -> bottom-left */
         for (let row = 0; row < this.height - 3; ++row) {
             for (let col = 3; col < this.width; ++col) {
                 const cell1 = this.board_[row + 0][col - 0]
@@ -191,11 +194,11 @@ export class Game {
         return None()
     }
 
-    private get height(): number {
+    public get height(): number {
         return this.board_.length;
     }
 
-    private get width(): number {
+    public get width(): number {
         return this.board_.at(0)!.length;
     }
 }
