@@ -1,28 +1,32 @@
 <script lang="ts">
-  import Menu from './Menu.svelte';
+  import { playing } from './store';
   import Game from './Game.svelte';
-
-  let youWantPlayToLetsPlay = false;
+  import Menu from './Menu.svelte';
 </script>
 
+<svelte:head>
+<title>Connect Four</title>
+</svelte:head>
+
 <div class="center-content">
-  {#if youWantPlayToLetsPlay}
+  {#if $playing}
     <Game />
   {:else}
-    <Menu on:click={() => (youWantPlayToLetsPlay = true)} />
+    <Menu />
   {/if}
 </div>
 
 <style>
   :global(:where(html, body)) {
     color-scheme: dark;
-    margin: 0;
-    height: 100%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
       Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    margin: 0;
+    height: 100%;
   }
 
-  .center-content {
+  :global(.center-content) {
     display: grid;
     align-items: center;
     justify-content: center;

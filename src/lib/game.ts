@@ -2,7 +2,7 @@ import { None, Some, type Option } from "./option"
 import { Err, Ok, type Result } from "./result"
 
 export type GameState =
-    | { type: 'PlayerTurn', player: Player }
+    | { type: 'PlayerTurn', player: Player, previous?: Cell }
     | { type: 'GameIsOver', outcome: Outcome }
 
 export type Player =
@@ -46,7 +46,7 @@ export class Game {
         ];
     }
 
-    public reset(): void {
+    public restart(): void {
         this.state_ = { type: 'PlayerTurn', player: 'Player1' };
         this.board_ = [
             [{ type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' }, { type: 'Empty' },],
@@ -76,11 +76,11 @@ export class Game {
             const cell = this.board_.at(i)!.at(colnum)!;
             if (cell.type === 'Empty') {
                 if (this.state_.player === 'Player1') {
-                    this.board_[i][colnum] = { type: 'Filled', player: 'Player1' }
-                    this.state_ = { type: 'PlayerTurn', player: 'Player2' }
+                    this.board_[i][colnum] = { type: 'Filled', player: 'Player1' };
+                    this.state_ = { type: 'PlayerTurn', player: 'Player2', previous: this.board_[i][colnum] };
                 } else {
-                    this.board_[i][colnum] = { type: 'Filled', player: 'Player2' }
-                    this.state_ = { type: 'PlayerTurn', player: 'Player1' }
+                    this.board_[i][colnum] = { type: 'Filled', player: 'Player2' };
+                    this.state_ = { type: 'PlayerTurn', player: 'Player1', previous: this.board_[i][colnum] };
                 }
                 break;
             }

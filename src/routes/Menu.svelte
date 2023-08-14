@@ -1,22 +1,11 @@
-<div class="center">
-	<h1 style:font-size="12vh">Connect Four</h1>
-	<div class="spacer" />
-	<button style:font-size="8vh" on:click>Play</button>
-	<div class="spacer" />
+<script>
+  import { playing } from './store';
+  import Button from './Button.svelte';
+</script>
+
+<div style:text-align="center">
+  <h1 style:font-size="10vh">Connect Four</h1>
+  <div style:height="12vh" />
+  <Button action={() => playing.set(true)}>Play</Button>
+  <div style:height="12vh" />
 </div>
-
-<style>
-	.spacer {
-		height: 8vh;
-	}
-
-	.center {
-		text-align: center;
-	}
-
-	button {
-		border: none;
-		padding: 2vh 4vh;
-		border-radius: 25% / 50%;
-	}
-</style>
