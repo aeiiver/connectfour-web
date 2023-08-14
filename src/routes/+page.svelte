@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-<title>Connect Four</title>
+  <title>Connect Four</title>
 </svelte:head>
 
 <div class="center-content">
